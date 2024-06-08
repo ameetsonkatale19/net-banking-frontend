@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="depositApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Net Banking App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+    <script src="deposit.js"></script>
+    <style>
+     .success-message {
+        width: 50%;
+    justify-content: center;
+    left: 28%;
+      }
+      footer{
+        position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+      }
+        .navbar-brand {
+            max-height: 50px; 
+        }
+        .sub-menu{
+            background-color: azure;
+            margin-top: 30px;
+        }
+        .card-margin{
+            margin-top: 20px; 
+        }
+        .gradient-custom {
+/* fallback for old browsers */
+background: #f6d365;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+}
+
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+      </style>
+  </head>
+  
+  <body>
+  <div ng-controller="DepositController">
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+          <!-- Company Logo -->
+          <a class="navbar-brand text-dark" href="#">
+            <img src="./appLogo.png" width="30" height="30" class="d-inline-block align-top" alt="Logo"> Net Banking App
+          </a>
+        
+            <button type="button"  class="btn btn-info btn-lg" ng-click="logout()">
+              <span class="btn-label"><i class="glyphicon glyphicon-log-out"></i></span>Logout</button>
+        </div>
+      </nav>
+
+    <div class="container h-custom">
+
+      <div class="card text-center">
+        <div class="card-header">
+          <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item">
+              <a class="nav-link" href="home.html">Account Details</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="transaction.html">Transfer Amount</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="deposit.html">Deposit Funds</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="profile.html">Statements</a>
+            </li>
+          </ul>
+        </div>
+ 
+        <!-- Deposit -->
+        <div class="card-body justify-content-center" style="background-color: #f4f5f7;">
+          <div class="alert alert-success" id="success-alert" ng-show ="successDeposit">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Success! </strong> Amount Deposited Successfully.!
+          </div>
+
+          <h5 class="card-title">Deposit Amount</h5>
+          <form name="transferForm" ng-submit="depositFunds(deposit)" novalidate>
+            
+            <div class="form-group mb-3 row">
+              <div class="col-sm-3"></div>
+            <label for="ifscCode" class="col-sm-3">Amount</label>
+            <div class="col-sm-3">
+            <input type="text" class="form-control form-control-lg" id="amount" name="amount" ng-model="deposit.amount" required> </div>
+            <div class="col-sm-3"></div>
+            <div class="invalid-feedback" ng-show="deposit.amount.$dirty && deposit.amount.$invalid">
+              amount is required.
+            </div>
+          </div>
+            <button type="submit" class="btn btn-primary" ng-disabled="deposit.$invalid">Deposit Amount</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer class="bg-body-tertiary text-center text-lg-start">
+      <div
+      class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+      <!-- Copyright -->
+      <div class="text-white mb-3 mb-md-0">
+        Copyright © 2020. All rights reserved.
+      </div>
+    </div>
+    
+    </footer>
+  </div>
+  </body>
+  </html>

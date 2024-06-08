@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="profileApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Net Banking App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+    <script src="profile.js"></script>
+    <style>
+      footer{
+        position: relative;
+        margin-top: 270px;
+      }
+        .navbar-brand {
+            max-height: 50px; 
+        }
+        .sub-menu{
+            background-color: azure;
+            margin-top: 30px;
+        }
+        .card-margin{
+            margin-top: 20px; 
+        }
+        .gradient-custom {
+/* fallback for old browsers */
+background: #f6d365;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+}
+
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+      </style>
+  </head>
+  
+  <body>
+  <div ng-controller="ProfileController">
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+          <!-- Company Logo -->
+          <a class="navbar-brand text-dark" href="#">
+            <img src="./appLogo.png" width="30" height="30" class="d-inline-block align-top" alt="Logo"> Net Banking App
+          </a>
+          <button type="button"  class="btn btn-info btn-lg" ng-click="logout()">
+            <span class="btn-label"><i class="glyphicon glyphicon-log-out"></i></span>Logout</button>
+        </div>
+      </nav>
+
+    <div class="container h-custom ">
+      <div class="card text-center">
+        <div class="card-header">
+          <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item">
+              <a class="nav-link" href="home.html">Account Details</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="transaction.html">Transfer Amount</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="deposit.html">Deposit Funds</a>
+          </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Statements</a>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body justify-content-center" style="background-color: #f4f5f7;">
+            <h5 class="card-title">Statements</h5>
+            <form name="dateForm" ng-submit="submitDates(statements)">
+                <div class="mb-3 row">
+                <div class="form-group col-sm-4">
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" class="form-control" id="startDate" name="startDate" ng-model="statements.startDate" required>
+                    <div class="invalid-feedback" ng-show="dateForm.startDate.$error.required && dateForm.$submitted">
+                        Start date is required.
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="endDate">End Date:</label>
+                    <input type="date" class="form-control" id="endDate" name="endDate" ng-model="statements.endDate" required>
+                    <div class="invalid-feedback" ng-show="dateForm.endDate.$error.required && dateForm.$submitted">
+                        End date is required.
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <div class="col-sm-3">
+                  <button type="button" ng-click="downloadStatement(statements)" ng-show="showDownload" class="btn btn-primary">Download Statement</button>
+                </div>
+            </div>
+            </form>
+          
+              <div class="row">
+                <div class="col">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Type</th>
+                        <th>Receiver Name</th>
+                      </tr>
+                    </thead>
+                    <tbody id="statement-grid">
+                      <!-- Statement rows will be appended here -->
+                      <tr  ng-repeat="item in statementsLists">
+                        <th>{{ item.transaction_date }}</th>
+                        <th>{{ item.amount }}</th>
+                        <th>{{ item.transactionType }}</th>
+                        <th>{{ item.receiverName }}</th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="bg-body-tertiary text-center text-lg-start">
+    <div
+    class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+    <!-- Copyright -->
+    <div class="text-white mb-3 mb-md-0">
+      Copyright © 2020. All rights reserved.
+    </div>
+    <div>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="#!" class="text-white">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </div>
+  </div>
+
+  </footer>
+  </body>
+  </html>

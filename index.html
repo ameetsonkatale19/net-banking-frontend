@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="loginApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+
+<style>
+ .divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+</style>
+
+<script src="index.js"></script>
+</head>
+<body  class="bg-light" ng-controller="loginController">
+  <!-- <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            Login
+          </div>
+          <div class="card-body">
+            <form name="loginForm" ng-submit="loginUser(user)" novalidate>
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" ng-model="user.username" required>
+                <div class="invalid-feedback" ng-show="loginForm.username.$dirty && loginForm.username.$invalid">
+                  Username is required.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" ng-model="user.password" required>
+                <div class="invalid-feedback" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
+                  Password is required.
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Login</button>
+              <div ng-show="invalidCredentials" style="color: red;">Invalid username or password.</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <section class="vh-100">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-9 col-lg-6 col-xl-5">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+            class="img-fluid" alt="Sample image">
+        </div>
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <form name="loginForm" ng-submit="loginUser(user)">
+            <!-- Email input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="text" id="form3Example3" class="form-control form-control-lg"  ng-model="user.username" 
+                placeholder="Enter Username" required/>
+              <label class="form-label" for="form3Example3">Username</label>
+            </div>
+  
+            <!-- Password input -->
+            <div data-mdb-input-init class="form-outline mb-3">
+              <input type="password" id="form3Example4" class="form-control form-control-lg"  ng-model="user.password" 
+                placeholder="Enter password" required/>
+              <label class="form-label" for="form3Example4">Password</label>
+            </div>
+            <div ng-show="invalidCredentials" style="color: red;">Invalid username or password.</div>
+  
+            <div class="d-flex justify-content-between align-items-center">
+              <!-- Checkbox -->
+              <div class="form-check mb-0">
+                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                <label class="form-check-label" for="form2Example3">
+                  Remember me
+                </label>
+              </div>
+              <a href="#!" class="text-body">Forgot password?</a>
+            </div>
+  
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+            </div>
+  
+          </form>
+        </div>
+      </div>
+    </div>
+    <div
+      class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+      <!-- Copyright -->
+      <div class="text-white mb-3 mb-md-0">
+        Copyright © 2020. All rights reserved.
+      </div>
+      <!-- Copyright -->
+  
+      <!-- Right -->
+      <div>
+        <a href="#!" class="text-white me-4">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#!" class="text-white me-4">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#!" class="text-white me-4">
+          <i class="fab fa-google"></i>
+        </a>
+        <a href="#!" class="text-white">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
+      <!-- Right -->
+    </div>
+  </section>
+  <!-- <script>
+    angular.module('loginApp', []).controller('loginController', function($scope,$location) {
+    $scope.user = {};
+  
+  $scope.loginUser = function(user) {
+    $scope.user = user;
+    debugger;
+    console.log("jbdkjbv");
+    console.log(user);
+    $location.path("/home");
+  };
+  });
+  </script> -->
+</body>
+</html>
